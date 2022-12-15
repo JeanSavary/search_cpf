@@ -110,6 +110,14 @@ if rncp_code:
                 "on_site",
             ]
         ]
+        filtered_found_formations.columns = [
+            "Organisme",
+            "Nom formation",
+            "Durée (h)",
+            "Prix (€)",
+            "Ville",
+            "Présentiel",
+        ]
 
         if not filtered_found_formations.empty:
             st.dataframe(filtered_found_formations)
