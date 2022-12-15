@@ -64,14 +64,15 @@ if rncp_code and postal_code:
         usable = False
 
     if usable:
+        filtered_cpf.loc[:, "distance"] = filtered_cpf.apply(
+            lambda row: geopy.distance.geodesic(
+                (postal_code_latitude, postal_code_longitude),
+                (row["latitude"], row["longitude"]),
+            ).meters,
+            axis=1,
+        )
+
         if remote == "Non":
-            filtered_cpf.loc[:, "distance"] = filtered_cpf.apply(
-                lambda row: geopy.distance.geodesic(
-                    (postal_code_latitude, postal_code_longitude),
-                    (row["latitude"], row["longitude"]),
-                ).meters,
-                axis=1,
-            )
 
             found_formations = filtered_cpf[
                 (filtered_cpf.on_site)
